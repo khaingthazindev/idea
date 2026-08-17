@@ -1,10 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
 use App\Models\Idea;
 use App\Models\User;
-use Ramsey\Collection\Collection;
 
 test('it belongs to a user', function () {
     $idea = Idea::factory()->create();
@@ -15,5 +12,11 @@ test('it belongs to a user', function () {
 test('it can have steps', function () {
     $idea = Idea::factory()->create();
 
-    expect($idea->steps)->toBeInstanceOf(Collection::class);
+    expect($idea->steps)->toBeEmpty();
+
+    $idea->steps()->create([
+        'description' => 'Do the thing',
+    ]);
+
+    expect($idea->fresh()->steps)->toHaveCount(1);
 });

@@ -14,6 +14,8 @@ class Step extends Model
     /** @use HasFactory<StepFactory> */
     use HasFactory;
 
+    protected $attributes = ['completed' => false];
+
     public function idea(): BelongsTo
     {
         return $this->belongsTo(Idea::class);
